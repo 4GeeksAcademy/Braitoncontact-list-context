@@ -3,8 +3,12 @@ import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext.js";
 
-export const Modal = props => {
+export const ModalEdit = props => {
 	const { store, actions } = useContext(Context);
+	const [full_name, setFullName] = useState("");
+	const [email, setEmail] = useState("");
+	const [phone, setPhone] = useState("");
+	const [address, setAddress] = useState("");
 	const [state, setState] = useState({
 		//initialize state here
 	});
@@ -28,7 +32,48 @@ export const Modal = props => {
 						)}
 					</div>
 					<div className="modal-body">
-						<p>Warning: unknown consequences after this point... Kidding!</p>
+						<form>
+							<div className="form-group">
+								<label>Full Name</label>
+								<input
+									value={full_name}
+									onChange={e => setFullName(e.target.value)}
+									type="text"
+									className="form-control"
+									placeholder="Full Name"
+								/>
+							</div>
+							<div className="form-group">
+								<label>Email</label>
+								<input
+									value={email}
+									onChange={e => setEmail(e.target.value)}
+									type="email"
+									className="form-control"
+									placeholder="Enter email"
+								/>
+							</div>
+							<div className="form-group">
+								<label>Phone</label>
+								<input
+									value={phone}
+									onChange={e => setPhone(e.target.value)}
+									type="phone"
+									className="form-control"
+									placeholder="Enter phone"
+								/>
+							</div>
+							<div className="form-group">
+								<label>Address</label>
+								<input
+									value={address}
+									onChange={e => setAddress(e.target.value)}
+									type="text"
+									className="form-control"
+									placeholder="Enter address"
+								/>
+							</div>
+						</form>
 					</div>
 					<div className="modal-footer">
 						<button type="button" className="btn btn-primary">
@@ -37,7 +82,7 @@ export const Modal = props => {
 						<button
 							type="button"
 							onClick={() => {
-								actions.borrarContacto(props.id);
+								actions.editarContacto(full_name, email, address, phone , props.id);
 							}}
 							className="btn btn-secondary"
 							data-dismiss="modal">
@@ -53,7 +98,7 @@ export const Modal = props => {
  * Define the data-types for
  * your component's properties
  **/
-Modal.propTypes = {
+ModalEdit.propTypes = {
 	history: PropTypes.object,
 	onClose: PropTypes.func,
 	show: PropTypes.bool,
@@ -64,7 +109,7 @@ Modal.propTypes = {
  * Define the default values for
  * your component's properties
  **/
-Modal.defaultProps = {
+ModalEdit.defaultProps = {
 	show: false,
 	onClose: null
 };
